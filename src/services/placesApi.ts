@@ -49,7 +49,7 @@ export class PlacesApiClient implements RestaurantProvider {
         radius: 1000,
       },
       includedPrimaryTypes: ['restaurant'],
-      languageCode: 'ko',
+      language: 'ko',
     };
 
     const { places } = await Place.searchNearby(request);
