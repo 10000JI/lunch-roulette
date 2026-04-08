@@ -76,7 +76,7 @@ No tailwind.config.js needed in v4.
 | Avoid | Why | Use Instead |
 |-------|-----|-------------|
 | react-custom-roulette | Abandoned since April 2023 | Custom Canvas wheel or spin-wheel v5 |
-| Google Maps JavaScript API (full) | 200KB+ bundle for map rendering not needed | Direct REST calls via fetch |
+| Google Maps JavaScript API (full map rendering) | 200KB+ bundle for map rendering not needed | importLibrary('places') for Places API only (CORS-safe, lightweight) |
 | PostCSS + autoprefixer | Tailwind v4 uses @tailwindcss/vite plugin directly | @tailwindcss/vite plugin |
 | Create React App (CRA) | Officially deprecated | Vite with react-ts template |
 | Axios | 13KB for calls fetch handles natively | Native fetch API |
