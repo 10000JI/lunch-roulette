@@ -1,0 +1,4 @@
+.env
+.planning/
+node_modules/
+dist/
