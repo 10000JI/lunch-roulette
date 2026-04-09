@@ -36,7 +36,17 @@ export function useRestaurants(
           const filtered = results
             .filter(r => r.category === category)
             .sort((a, b) => (a.distance ?? 0) - (b.distance ?? 0));
-          setRestaurants(filtered);
+
+          // Per D-03: include "other" restaurants when category results are too few
+          let finalList = filtered;
+          if (filtered.length < 3) {
+            const others = results
+              .filter(r => r.category === 'other')
+              .sort((a, b) => (a.distance ?? 0) - (b.distance ?? 0));
+            finalList = [...filtered, ...others].slice(0, 10);
+          }
+
+          setRestaurants(finalList);
         }
       } catch {
         if (!cancelled) {
