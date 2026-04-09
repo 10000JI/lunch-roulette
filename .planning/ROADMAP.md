@@ -3,15 +3,15 @@
 **Created:** 2026-04-08
 **Phases:** 3
 **Granularity:** Standard
-**Coverage:** 15/15 v1 requirements mapped ✓
+**Coverage:** 15/15 v1 requirements mapped
 
 ## Progress
 
 | # | Phase | Goal | Requirements | Plans | Status |
 |---|-------|------|--------------|-------|--------|
-| 1 | Foundation and Data Layer | App detects location and fetches restaurant data (real or mock) | LOC-01, LOC-02, LOC-03, API-01, API-02 | 2 | ◐ Planning complete |
-| 2 | Core Interaction | Users select category, spin wheel, see winning restaurant | CAT-01, CAT-02, RLT-01, RLT-02, RLT-03, RES-01, RES-02 | 0 | ○ Pending |
-| 3 | Polish and Integration | Complete flow works on mobile/desktop with loading feedback and clean design | UI-01, UI-02, UI-03 | 0 | ○ Pending |
+| 1 | Foundation and Data Layer | App detects location and fetches restaurant data (real or mock) | LOC-01, LOC-02, LOC-03, API-01, API-02 | 2 | Done |
+| 2 | Core Interaction | Users select category, spin wheel, see winning restaurant | CAT-01, CAT-02, RLT-01, RLT-02, RLT-03, RES-01, RES-02 | 3 | Planning complete |
+| 3 | Polish and Integration | Complete flow works on mobile/desktop with loading feedback and clean design | UI-01, UI-02, UI-03 | 0 | Pending |
 
 ## Phase Details
 
@@ -23,8 +23,8 @@
 **Plans:** 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Scaffold project, define types, create mock data provider
-- [ ] 01-02-PLAN.md — Location hook, Places API service, and App integration
+- [x] 01-01-PLAN.md — Scaffold project, define types, create mock data provider
+- [x] 01-02-PLAN.md — Location hook, Places API service, and App integration
 
 **Success Criteria:**
 1. The app detects the user's current location via browser Geolocation API on page load
@@ -40,6 +40,12 @@ Plans:
 **Goal:** Users select category, spin wheel, see winning restaurant
 **Requirements:** CAT-01, CAT-02, RLT-01, RLT-02, RLT-03, RES-01, RES-02
 **UI hint:** yes
+**Plans:** 3 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Category selector UI and useRestaurants data hook
+- [ ] 02-02-PLAN.md — Canvas roulette wheel with spin physics
+- [ ] 02-03-PLAN.md — Result card modal and App.tsx flow wiring
 
 **Success Criteria:**
 1. User can select a food category (Korean, Chinese, Japanese, Western, etc.) from a visible list
@@ -57,7 +63,7 @@ Plans:
 **UI hint:** yes
 
 **Success Criteria:**
-1. The entire select-category → spin-wheel → view-result flow works end-to-end without manual refresh
+1. The entire select-category -> spin-wheel -> view-result flow works end-to-end without manual refresh
 2. The layout adapts properly to mobile screen sizes (primary use case is phone)
 3. Loading spinners or skeleton states appear during geolocation detection and API calls
 4. The overall visual design is clean and minimal with consistent spacing and typography
@@ -68,11 +74,11 @@ Plans:
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| LOC-01 | Phase 1 | Pending |
-| LOC-02 | Phase 1 | Pending |
-| LOC-03 | Phase 1 | Pending |
-| API-01 | Phase 1 | Pending |
-| API-02 | Phase 1 | Pending |
+| LOC-01 | Phase 1 | Done |
+| LOC-02 | Phase 1 | Done |
+| LOC-03 | Phase 1 | Done |
+| API-01 | Phase 1 | Done |
+| API-02 | Phase 1 | Done |
 | CAT-01 | Phase 2 | Pending |
 | CAT-02 | Phase 2 | Pending |
 | RLT-01 | Phase 2 | Pending |
@@ -84,8 +90,8 @@ Plans:
 | UI-02 | Phase 3 | Pending |
 | UI-03 | Phase 3 | Pending |
 
-**Coverage:** 15/15 mapped ✓ | 0 unmapped
+**Coverage:** 15/15 mapped | 0 unmapped
 
 ---
 *Roadmap created: 2026-04-08*
-*Last updated: 2026-04-08 after Phase 1 planning*
+*Last updated: 2026-04-09 after Phase 2 planning*
