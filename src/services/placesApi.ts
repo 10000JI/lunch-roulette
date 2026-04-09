@@ -42,18 +42,33 @@ export class PlacesApiClient implements RestaurantProvider {
 
     const { Place } = await google.maps.importLibrary('places') as google.maps.PlacesLibrary;
 
+    let radius = 1000;
+    let results = await this.doSearch(Place, lat, lng, radius);
+
+    // Adaptive radius: expand if too few results (per D-02)
+    if (results.length < 3 && radius < 2000) {
+      radius = 2000;
+      results = await this.doSearch(Place, lat, lng, radius);
+    }
+
+    return results;
+  }
+
+  private async doSearch(
+    Place: typeof google.maps.places.Place,
+    lat: number, lng: number, radius: number
+  ): Promise<Restaurant[]> {
     const request: google.maps.places.SearchNearbyRequest = {
       fields: ['displayName', 'rating', 'priceLevel', 'location', 'formattedAddress', 'types', 'id'],
       locationRestriction: {
         center: new google.maps.LatLng(lat, lng),
-        radius: 1000,
+        radius,
       },
       includedPrimaryTypes: ['restaurant'],
       language: 'ko',
     };
 
     const { places } = await Place.searchNearby(request);
-
     return (places || []).map(place => this.mapToRestaurant(place, lat, lng)).filter(Boolean) as Restaurant[];
   }
 
@@ -92,10 +107,16 @@ export class PlacesApiClient implements RestaurantProvider {
 
   private inferCategory(types: string[]): Category {
     const typeStr = types.join(',').toLowerCase();
-    if (typeStr.includes('korean')) return 'korean';
-    if (typeStr.includes('chinese')) return 'chinese';
-    if (typeStr.includes('japanese') || typeStr.includes('sushi') || typeStr.includes('ramen')) return 'japanese';
-    if (typeStr.includes('italian') || typeStr.includes('french') || typeStr.includes('american') || typeStr.includes('pizza') || typeStr.includes('burger') || typeStr.includes('steak')) return 'western';
+    // Korean
+    if (typeStr.includes('korean') || typeStr.includes('bibimbap') || typeStr.includes('bulgogi') || typeStr.includes('bbq')) return 'korean';
+    // Chinese
+    if (typeStr.includes('chinese') || typeStr.includes('dim_sum') || typeStr.includes('noodle') || typeStr.includes('dumpling')) return 'chinese';
+    // Japanese
+    if (typeStr.includes('japanese') || typeStr.includes('sushi') || typeStr.includes('ramen') || typeStr.includes('udon') || typeStr.includes('izakaya') || typeStr.includes('tempura') || typeStr.includes('donburi')) return 'japanese';
+    // Western
+    if (typeStr.includes('italian') || typeStr.includes('french') || typeStr.includes('american') || typeStr.includes('pizza') || typeStr.includes('burger') || typeStr.includes('steak') || typeStr.includes('mexican') || typeStr.includes('brunch') || typeStr.includes('cafe') || typeStr.includes('bakery') || typeStr.includes('sandwich') || typeStr.includes('pasta')) return 'western';
+    // Other Asian / misc
+    if (typeStr.includes('thai') || typeStr.includes('vietnamese') || typeStr.includes('indian') || typeStr.includes('seafood') || typeStr.includes('vegetarian') || typeStr.includes('meal_delivery') || typeStr.includes('meal_takeaway')) return 'other';
     return 'other';
   }
 
