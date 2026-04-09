@@ -10,8 +10,8 @@
 | # | Phase | Goal | Requirements | Plans | Status |
 |---|-------|------|--------------|-------|--------|
 | 1 | Foundation and Data Layer | App detects location and fetches restaurant data (real or mock) | LOC-01, LOC-02, LOC-03, API-01, API-02 | 2 | Done |
-| 2 | Core Interaction | Users select category, spin wheel, see winning restaurant | CAT-01, CAT-02, RLT-01, RLT-02, RLT-03, RES-01, RES-02 | 3 | Planning complete |
-| 3 | Polish and Integration | Complete flow works on mobile/desktop with loading feedback and clean design | UI-01, UI-02, UI-03 | 0 | Pending |
+| 2 | Core Interaction | Users select category, spin wheel, see winning restaurant | CAT-01, CAT-02, RLT-01, RLT-02, RLT-03, RES-01, RES-02 | 3 | Done |
+| 3 | Polish and Integration | Complete flow works on mobile/desktop with loading feedback and clean design | UI-01, UI-02, UI-03 | 2 | Planning complete |
 
 ## Phase Details
 
@@ -43,9 +43,9 @@ Plans:
 **Plans:** 3 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Category selector UI and useRestaurants data hook
-- [ ] 02-02-PLAN.md — Canvas roulette wheel with spin physics
-- [ ] 02-03-PLAN.md — Result card modal and App.tsx flow wiring
+- [x] 02-01-PLAN.md — Category selector UI and useRestaurants data hook
+- [x] 02-02-PLAN.md — Canvas roulette wheel with spin physics
+- [x] 02-03-PLAN.md — Result card modal and App.tsx flow wiring
 
 **Success Criteria:**
 1. User can select a food category (Korean, Chinese, Japanese, Western, etc.) from a visible list
@@ -61,6 +61,11 @@ Plans:
 **Goal:** Complete flow works on mobile/desktop with loading feedback and clean design
 **Requirements:** UI-01, UI-02, UI-03
 **UI hint:** yes
+**Plans:** 2 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — Improve category inference, adaptive search radius, and fallback logic
+- [ ] 03-02-PLAN.md — Restaurant list, responsive layout, loading states, and design polish
 
 **Success Criteria:**
 1. The entire select-category -> spin-wheel -> view-result flow works end-to-end without manual refresh
@@ -79,13 +84,13 @@ Plans:
 | LOC-03 | Phase 1 | Done |
 | API-01 | Phase 1 | Done |
 | API-02 | Phase 1 | Done |
-| CAT-01 | Phase 2 | Pending |
-| CAT-02 | Phase 2 | Pending |
-| RLT-01 | Phase 2 | Pending |
-| RLT-02 | Phase 2 | Pending |
-| RLT-03 | Phase 2 | Pending |
-| RES-01 | Phase 2 | Pending |
-| RES-02 | Phase 2 | Pending |
+| CAT-01 | Phase 2 | Done |
+| CAT-02 | Phase 2 | Done |
+| RLT-01 | Phase 2 | Done |
+| RLT-02 | Phase 2 | Done |
+| RLT-03 | Phase 2 | Done |
+| RES-01 | Phase 2 | Done |
+| RES-02 | Phase 2 | Done |
 | UI-01 | Phase 3 | Pending |
 | UI-02 | Phase 3 | Pending |
 | UI-03 | Phase 3 | Pending |
@@ -94,4 +99,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-04-08*
-*Last updated: 2026-04-09 after Phase 2 planning*
+*Last updated: 2026-04-09 after Phase 3 planning*
