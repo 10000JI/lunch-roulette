@@ -31,7 +31,7 @@ export function useRestaurants(
         const provider = getRestaurantProvider();
         const useLat = lat ?? 37.4979;
         const useLng = lng ?? 127.0276;
-        const results = await provider.searchNearby(useLat, useLng, category);
+        const results = await provider.searchNearby(useLat, useLng, category ?? undefined);
         if (!cancelled) {
           const filtered = results
             .filter(r => r.category === category)
