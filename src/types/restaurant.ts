@@ -22,3 +22,5 @@ export interface CategoryInfo {
   label: string;         // Korean display name
   emoji: string;
 }
+
+export type SortMode = 'popularity' | 'distance';

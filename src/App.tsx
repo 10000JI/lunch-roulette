@@ -5,7 +5,7 @@ import { CategorySelector } from './components/CategorySelector';
 import { RouletteWheel } from './components/RouletteWheel';
 import { ResultCard } from './components/ResultCard';
 import { RestaurantList } from './components/RestaurantList';
-import type { Category, Restaurant } from './types/restaurant';
+import type { Category, Restaurant, SortMode } from './types/restaurant';
 
 function LoadingSpinner({ message }: { message: string }) {
   return (
@@ -22,12 +22,16 @@ function LoadingSpinner({ message }: { message: string }) {
 function App() {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [winner, setWinner] = useState<Restaurant | null>(null);
+  const [sortMode, setSortMode] = useState<SortMode>('popularity');
+  const [radius, setRadius] = useState<number>(1000);
 
   const { location, error: locationError, isLoading: locationLoading } = useLocation();
   const { restaurants, isLoading: restaurantsLoading, error: restaurantsError } = useRestaurants(
     location?.lat ?? null,
     location?.lng ?? null,
-    selectedCategory
+    selectedCategory,
+    sortMode,
+    radius
   );
 
   return (
@@ -49,6 +53,44 @@ function App() {
             setWinner(null);
           }}
         />
+      </div>
+
+      {/* Sort mode + radius controls */}
+      <div className="flex flex-wrap justify-center gap-2 mb-4">
+        <button
+          className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+            sortMode === 'popularity'
+              ? 'bg-gray-900 text-white'
+              : 'bg-white text-gray-500 border border-gray-200 hover:bg-gray-100'
+          }`}
+          onClick={() => setSortMode('popularity')}
+        >
+          🔥 인기순
+        </button>
+        <button
+          className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+            sortMode === 'distance'
+              ? 'bg-gray-900 text-white'
+              : 'bg-white text-gray-500 border border-gray-200 hover:bg-gray-100'
+          }`}
+          onClick={() => setSortMode('distance')}
+        >
+          📍 거리순
+        </button>
+        <span className="text-gray-300 text-xs leading-6">|</span>
+        {[100, 200, 500, 1000].map((r) => (
+          <button
+            key={r}
+            className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+              radius === r
+                ? 'bg-blue-600 text-white'
+                : 'bg-white text-gray-500 border border-gray-200 hover:bg-gray-100'
+            }`}
+            onClick={() => setRadius(r)}
+          >
+            {r >= 1000 ? `${r / 1000}km` : `${r}m`}
+          </button>
+        ))}
       </div>
 
       {/* Loading state for restaurants */}

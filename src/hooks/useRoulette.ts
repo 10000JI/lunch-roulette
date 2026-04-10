@@ -13,7 +13,7 @@ const PASTEL_COLORS = [
   '#FFC9DE', // pastel rose
 ];
 
-const MAX_SEGMENTS = 10;
+const MAX_SEGMENTS = 20;
 
 function getCategoryEmoji(category: string): string {
   const cat = CATEGORIES.find((c) => c.id === category);

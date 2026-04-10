@@ -15,8 +15,6 @@ export function ResultCard({ restaurant, onClose }: ResultCardProps) {
   const filledStars = Math.round(restaurant.rating);
   const stars = Array.from({ length: 5 }, (_, i) => (i < filledStars ? '\u2605' : '\u2606')).join('');
 
-  const priceDisplay = '\u20A9'.repeat(restaurant.priceLevel);
-
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
@@ -52,14 +50,11 @@ export function ResultCard({ restaurant, onClose }: ResultCardProps) {
             <span className="text-gray-600 text-sm ml-1">{restaurant.rating.toFixed(1)}</span>
           </div>
 
-          {/* Distance and price row */}
-          <div className="flex items-center gap-4">
+          {/* Distance */}
+          <div className="flex items-center">
             <span className="text-gray-600 text-sm">
               {restaurant.distance !== undefined ? `\uD83D\uDCCD ${restaurant.distance}m` : '\uD83D\uDCCD \uAC70\uB9AC \uC815\uBCF4 \uC5C6\uC74C'}
             </span>
-            {restaurant.priceLevel > 0 && (
-              <span className="text-green-600 font-medium">{priceDisplay}</span>
-            )}
           </div>
 
           {/* Address */}

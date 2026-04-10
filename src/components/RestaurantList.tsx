@@ -19,8 +19,6 @@ export function RestaurantList({ restaurants }: RestaurantListProps) {
           const emoji = cat?.emoji ?? '';
           const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.name + ' ' + r.address)}`;
           const stars = '\u2605'.repeat(Math.round(r.rating)) + '\u2606'.repeat(5 - Math.round(r.rating));
-          const price = '\u20A9'.repeat(r.priceLevel);
-
           return (
             <a
               key={r.id}
@@ -43,9 +41,6 @@ export function RestaurantList({ restaurants }: RestaurantListProps) {
                   <p className="text-xs text-gray-500">
                     {r.distance !== undefined ? `${r.distance}m` : ''}
                   </p>
-                  {r.priceLevel > 0 && (
-                    <p className="text-xs text-green-600 font-medium mt-0.5">{price}</p>
-                  )}
                 </div>
               </div>
             </a>

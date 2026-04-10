@@ -45,7 +45,7 @@ export function useLocation(): UseLocationReturn {
         setIsLoading(false);
       },
       {
-        enableHighAccuracy: false,
+        enableHighAccuracy: true,
         timeout: 10000,
         maximumAge: 300000,
       }

@@ -8,7 +8,7 @@ export const PLACES_FIELD_MASK = [
 ] as const;
 
 export interface RestaurantProvider {
-  searchNearby(lat: number, lng: number, category?: Category): Promise<Restaurant[]>;
+  searchNearby(lat: number, lng: number, category?: Category, radius?: number): Promise<Restaurant[]>;
 }
 
 let mapsLoaded = false;
@@ -37,19 +37,13 @@ export class PlacesApiClient implements RestaurantProvider {
     this.apiKey = apiKey;
   }
 
-  async searchNearby(lat: number, lng: number, _category?: Category): Promise<Restaurant[]> {
+  async searchNearby(lat: number, lng: number, _category?: Category, searchRadius?: number): Promise<Restaurant[]> {
     await loadGoogleMapsApi(this.apiKey);
 
     const { Place } = await google.maps.importLibrary('places') as google.maps.PlacesLibrary;
 
-    let radius = 1000;
-    let results = await this.doSearch(Place, lat, lng, radius);
-
-    // Adaptive radius: expand if too few results (per D-02)
-    if (results.length < 3 && radius < 2000) {
-      radius = 2000;
-      results = await this.doSearch(Place, lat, lng, radius);
-    }
+    const radius = searchRadius ?? 1000;
+    const results = await this.doSearch(Place, lat, lng, radius);
 
     return results;
   }
@@ -107,16 +101,16 @@ export class PlacesApiClient implements RestaurantProvider {
 
   private inferCategory(types: string[]): Category {
     const typeStr = types.join(',').toLowerCase();
-    // Korean
-    if (typeStr.includes('korean') || typeStr.includes('bibimbap') || typeStr.includes('bulgogi') || typeStr.includes('bbq')) return 'korean';
+    // Korean — match specific Google Places types
+    if (typeStr.includes('korean_restaurant') || typeStr.includes('korean_barbecue')) return 'korean';
     // Chinese
-    if (typeStr.includes('chinese') || typeStr.includes('dim_sum') || typeStr.includes('noodle') || typeStr.includes('dumpling')) return 'chinese';
+    if (typeStr.includes('chinese_restaurant') || typeStr.includes('hot_pot_restaurant') || typeStr.includes('dim_sum')) return 'chinese';
     // Japanese
-    if (typeStr.includes('japanese') || typeStr.includes('sushi') || typeStr.includes('ramen') || typeStr.includes('udon') || typeStr.includes('izakaya') || typeStr.includes('tempura') || typeStr.includes('donburi')) return 'japanese';
+    if (typeStr.includes('japanese_restaurant') || typeStr.includes('sushi_restaurant') || typeStr.includes('ramen_restaurant')) return 'japanese';
     // Western
-    if (typeStr.includes('italian') || typeStr.includes('french') || typeStr.includes('american') || typeStr.includes('pizza') || typeStr.includes('burger') || typeStr.includes('steak') || typeStr.includes('mexican') || typeStr.includes('brunch') || typeStr.includes('cafe') || typeStr.includes('bakery') || typeStr.includes('sandwich') || typeStr.includes('pasta')) return 'western';
-    // Other Asian / misc
-    if (typeStr.includes('thai') || typeStr.includes('vietnamese') || typeStr.includes('indian') || typeStr.includes('seafood') || typeStr.includes('vegetarian') || typeStr.includes('meal_delivery') || typeStr.includes('meal_takeaway')) return 'other';
+    if (typeStr.includes('italian_restaurant') || typeStr.includes('french_restaurant') || typeStr.includes('american_restaurant') || typeStr.includes('pizza_restaurant') || typeStr.includes('hamburger_restaurant') || typeStr.includes('steak_house') || typeStr.includes('mexican_restaurant') || typeStr.includes('brunch_restaurant') || typeStr.includes('sandwich_shop')) return 'western';
+    // Asian other
+    if (typeStr.includes('asian_restaurant') || typeStr.includes('thai_restaurant') || typeStr.includes('vietnamese_restaurant') || typeStr.includes('indian_restaurant')) return 'other';
     return 'other';
   }
 

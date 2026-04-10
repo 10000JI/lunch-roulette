@@ -107,7 +107,8 @@ export class MockDataProvider {
   async searchNearby(
     _lat: number,
     _lng: number,
-    category?: Category
+    category?: Category,
+    _radius?: number
   ): Promise<Restaurant[]> {
     // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 300));
